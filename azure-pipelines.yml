@@ -1,0 +1,28 @@
+
+# Login Registration Website - CI Pipeline
+
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  # Get source code from GitHub
+  - checkout: self
+
+  # Check project files
+  - script: |
+      echo "Checking website files..."
+      ls -la
+    displayName: 'Check Project Files'
+
+  # Build Docker image
+  - script: |
+      docker build -t login-registration-app:$(Build.BuildId) .
+    displayName: 'Build Docker Image'
+
+  # Display success
+  - script: |
+      echo "Docker image built successfully!"
+    displayName: 'Build Completed'
